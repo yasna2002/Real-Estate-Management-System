@@ -16,15 +16,16 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description')->nullable();
             $table->decimal('price');
-            $table->enum('type', ['apartment', 'house'])->nullable();
-            $table->enum('status', ['rent', 'buy']);
+            $table->string('type')->nullable();
+            $table->string('status');
             $table->text('location')->nullable();
             $table->string('city');
-            $table->integer('size')->nullable();
+            $table->decimal('size')->nullable();
             $table->integer('rooms')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });    }
 
     /**
