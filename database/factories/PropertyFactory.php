@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Property;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,8 +23,8 @@ class PropertyFactory extends Factory
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'price' => $this->faker->randomFloat(2, 10, 1000),
-            'type' => $this->faker->word,
-            'status' => $this->faker->word,
+            'type' => Property::getPropetyTypes()[array_rand(Property::getPropetyTypes())],
+            'status' => Property::getPropertyStatus()[array_rand(Property::getPropertyStatus())],
             'location' => $this->faker->address,
             'city' => $this->faker->city,
             'size' => $this->faker->randomFloat(2, 20, 500),
