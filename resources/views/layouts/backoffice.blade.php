@@ -29,7 +29,7 @@
 
     <!-- Page Content -->
     <main>
-        <div class="pt-[80px] p-2 py-8 sm:ml-64 min-h-screen">
+        <div class="pt-[100px] p-8 sm:ml-64 min-h-screen">
             {{ $slot }}
         </div>
     </main>

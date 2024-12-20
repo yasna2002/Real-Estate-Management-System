@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Route;
 
 // \Illuminate\Support\Facades\Auth::loginUsingId(1);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/', function () {
+    return view('welcome');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'backofficeArea'])->group(function () {
@@ -17,11 +17,6 @@ Route::middleware(['auth', 'backofficeArea'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-
-Route::get('/', function () {
-    return view('welcome');
 });
 
 require __DIR__.'/auth.php';
