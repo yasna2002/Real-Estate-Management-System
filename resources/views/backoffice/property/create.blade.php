@@ -5,14 +5,14 @@
 
         <div class="sm:flex items-center justify-between sm:space-x-6 space-y-3 sm:space-y-0">
             <x-input name="title" label="Title" required />
-            <x-input name="price" label="Price" type="number" required />
+            <x-input name="price" step="0.01" label="Price" type="number" required />
             <x-select name="type" label="Type" :options="\App\Models\Property::getPropetyTypes()" />
         </div>
 
         <div class="sm:flex items-center justify-between sm:space-x-6 space-y-3 sm:space-y-0">
             <x-select name="status" label="Status" :options="\App\Models\Property::getPropertyStatus()" required />
-            <x-input name="size" label="Size (sqm)" type="number" />
-            <x-input name="rooms" label="Rooms" type="number" />
+            <x-input name="size" step="0.1" label="Size (sqm)" type="number" />
+            <x-input name="rooms" step="0.5" label="Rooms" type="number" />
         </div>
 
         <div class="sm:flex items-center justify-between sm:space-x-6 space-y-3 sm:space-y-0">

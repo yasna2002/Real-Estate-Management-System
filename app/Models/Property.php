@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Property
  *
  * @property string $title
+ * @property int $id
  * @property string|null $description
  * @property float $price
  * @property string|null $type

@@ -8,6 +8,7 @@
 <div class="w-full">
     <label for="{{ $name }}" class="block text-sm font-medium text-gray-700">{{ $label }}</label>
     <textarea
+        rows="6"
         name="{{ $name }}"
         id="{{ $name }}"
         {{ $required ? 'required' : '' }}

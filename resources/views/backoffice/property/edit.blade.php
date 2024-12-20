@@ -1,3 +1,6 @@
+@php
+    /** @var \App\Models\Property $property */
+@endphp
 <x-backoffice-layout>
     <form action="{{ route('backoffice.properties.update', $property->id) }}" method="POST"
           class="space-y-6 bg-white p-6 rounded-lg shadow-md">
@@ -7,14 +10,14 @@
         <!-- Title, Price, Type -->
         <div class="sm:flex items-center justify-between sm:space-x-6 space-y-3 sm:space-y-0">
             <x-input name="title" label="Title" :value="$property->title" required />
-            <x-input name="price" label="Price" type="number" :value="$property->price" required />
+            <x-input name="price" step="0.01" label="Price" type="number" :value="$property->price" required />
             <x-select name="type" label="Type" :options="\App\Models\Property::getPropetyTypes()" :value="$property->type" />
         </div>
 
         <!-- Status, Size, Rooms -->
         <div class="sm:flex items-center justify-between sm:space-x-6 space-y-3 sm:space-y-0">
             <x-select name="status" label="Status" :options="\App\Models\Property::getPropertyStatus()" :value="$property->status" required />
-            <x-input name="size" label="Size (sqm)" type="number" :value="$property->size" />
+            <x-input name="size" step="0.1" label="Size (sqm)" type="number" :value="$property->size" />
             <x-input name="rooms" label="Rooms" type="number" :value="$property->rooms" />
         </div>
 
