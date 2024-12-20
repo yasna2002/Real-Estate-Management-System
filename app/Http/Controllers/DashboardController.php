@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Property;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $properties = Property::paginate(15);
+        return view('dashboard', compact('properties'));
     }
 }

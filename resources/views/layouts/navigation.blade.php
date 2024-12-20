@@ -102,22 +102,24 @@
         </div>
     </div>
 </nav>
-<aside id="logo-sidebar" class="fixed top-0 left-0 z-40 h-screen w-64 -translate-x-full border-r border-zinc-200
+@if(str_starts_with(\Illuminate\Support\Facades\Route::getCurrentRoute()->getName(), 'backoffice'))
+    <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 h-screen w-64 -translate-x-full border-r border-zinc-200
     bg-[#c52741] pt-20 transition-transform sm:translate-x-0"
-       aria-label="Sidebar">
-    <div class="h-full overflow-y-auto pb-4 border-t border-[#00ff00]">
-        <div>
-            <h3 class="py-2 pl-2 text-white font-semibold">
-                Real Estate Management
-            </h3>
-            <ul class="ml-6 text-white font-medium hover:underline hover:font-bold">
-                <li><a href="{{ route('backoffice.properties.index') }}">Properties</a></li>
+           aria-label="Sidebar">
+        <div class="h-full overflow-y-auto pb-4 border-t border-[#00ff00]">
+            <div>
+                <h3 class="py-2 pl-2 text-white font-semibold">
+                    Real Estate Management
+                </h3>
+                <ul class="ml-6 text-white font-medium hover:underline hover:font-bold">
+                    <li><a href="{{ route('backoffice.properties.index') }}">Properties</a></li>
+                </ul>
+            </div>
+            <ul>
             </ul>
         </div>
-        <ul>
-        </ul>
-    </div>
-</aside>
+    </aside>
+@endif
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
