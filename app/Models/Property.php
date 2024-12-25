@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $city
  * @property float|null $size
  * @property int|null $rooms
+ * @property file|null $photo
  */
 class Property extends Model
 {
@@ -47,9 +48,9 @@ class Property extends Model
         return $this->hasMany(Favorite::class);
     }
 
-    public function images()
+    public function image()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasOne(Image::class);
     }
 
     public static function getPropetyTypes()

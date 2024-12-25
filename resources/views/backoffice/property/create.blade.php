@@ -1,6 +1,6 @@
 <x-backoffice-layout>
     <form action="{{ route('backoffice.properties.store') }}" method="POST"
-          class="space-y-6 bg-white p-6 rounded-lg shadow-md">
+          class="space-y-6 bg-white p-6 rounded-lg shadow-md" enctype="multipart/form-data">
         @csrf
 
         <div class="sm:flex items-center justify-between sm:space-x-6 space-y-3 sm:space-y-0">
@@ -20,7 +20,10 @@
             <x-input name="city" label="City" required />
         </div>
 
-        <x-textarea name="description" label="Description" />
+        <div class="sm:flex w-1/2 items-center justify-between sm:space-x-6 space-y-3 sm:space-y-0">
+            <x-textarea name="description" label="Description" />
+            <x-input name="photo" type="file" label="Photo" />
+        </div>
 
         <div>
             <button type="submit"

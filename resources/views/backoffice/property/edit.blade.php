@@ -3,7 +3,7 @@
 @endphp
 <x-backoffice-layout>
     <form action="{{ route('backoffice.properties.update', $property->id) }}" method="POST"
-          class="space-y-6 bg-white p-6 rounded-lg shadow-md">
+          class="space-y-6 bg-white p-6 rounded-lg shadow-md" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -28,7 +28,19 @@
         </div>
 
         <!-- Description -->
-        <x-textarea name="description" label="Description" :value="$property->description" />
+        <div class="sm:flex items-center justify-between sm:space-x-6 space-y-3 sm:space-y-0">
+            <div class="flex w-1/3">
+                <x-textarea name="description" label="Description" :value="$property->description" />
+            </div>
+          <div class="flex w-1/3">
+            <x-input name="photo" type="file" label="Photo" />
+          </div>
+          @if ($property->image?->image_url && file_exists(public_path('images/' . $property->image?->image_url)))
+          <div class="flex w-1/3 max-h-72">
+            <img src="{{ asset('images/' . $property->image?->image_url)}}" />
+          </div>
+          @endif
+        </div>
 
         <!-- Submit Button -->
         <div>
