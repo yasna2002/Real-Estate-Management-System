@@ -7,8 +7,8 @@
                 <div class="bg-white border border-gray-200 rounded-lg shadow-md flex flex-col h-full">
                     <!-- Image Section -->
                     <img
-                        src="{{ $property?->image_url ?? 'https://via.placeholder.com/300x200' }}"
-                        alt="{{ $property->title }}"
+                    src="{{ $property?->image?->image_url ? asset('images/' . $property->image->image_url) : 'https://via.placeholder.com/300x200' }}"
+                    alt="{{ $property->title }}"
                         class="w-full h-72 object-cover">
 
                     <!-- Content Section -->

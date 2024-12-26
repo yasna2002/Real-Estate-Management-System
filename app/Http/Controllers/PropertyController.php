@@ -26,20 +26,14 @@ class PropertyController extends Controller
     {
         $validatedData = $request->validate($this->getValidation());
         $validatedData['user_id'] = $request->user()->id;
+
         try {
             $property = Property::create($validatedData);
-            if ($request->photo){
-                $filename = time().'.'.$request->photo->getClientOriginalExtension();
-                $request->photo->move(public_path('images'), $filename);
-                Image::create([
-                    'property_id' => $property->id,
-                    'image_url' => $filename,
-                ]);
-            };
-        }catch (\Exception $exception){
-            dd($exception->getMessage());
-            return redirect()->route('backoffice.property.index')->with('error', $exception->getMessage());
+            $this->handleImageUpload($request->photo, $property->id);
+        } catch (\Exception $exception) {
+            return $this->handleError($exception);
         }
+
         return redirect()->route('backoffice.properties.index');
     }
 
@@ -52,27 +46,43 @@ class PropertyController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $property = Property::findOrfail($id);
+        $property = Property::findOrFail($id);
         $validatedData = $request->validate($this->getValidation());
+
         try {
             $property->update($validatedData);
-            if ($request->photo){
-                $image_path = public_path('images/' . $property?->image?->image_url);
-
-                if(File::exists($image_path)) {
-                    File::delete($image_path);
-                }
-                $filename = time().'.'.$request->photo->getClientOriginalExtension();
-                $request->photo->move(public_path('images'), $filename);
-                $property->image->update([
-                    'image_url' => $filename,
-                ]);
-            };
-        }catch (\Exception $exception){
-            dd($exception->getMessage());
-            return redirect()->route('backoffice.property.index')->with('error', $exception->getMessage());
+            $this->handleImageUpload($request->photo, $property->id, $property->image);
+        } catch (\Exception $exception) {
+            return $this->handleError($exception);
         }
+
         return redirect()->route('backoffice.properties.index');
+    }
+
+    private function handleImageUpload($photo, $propertyId, $existingImage = null)
+    {
+        if ($photo) {
+            if ($existingImage) {
+                $imagePath = public_path('images/' . $existingImage->image_url);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
+
+            $filename = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('images'), $filename);
+
+            if ($existingImage) {
+                $existingImage->update(['image_url' => $filename]);
+            } else {
+                Image::create(['property_id' => $propertyId, 'image_url' => $filename]);
+            }
+        }
+    }
+
+    private function handleError($exception)
+    {
+        return redirect()->route('backoffice.property.index')->with('error', $exception->getMessage());
     }
 
     public function destroy(string $id)
