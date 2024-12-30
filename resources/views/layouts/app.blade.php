@@ -17,7 +17,6 @@
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-[#ffece5]">
     @include('layouts.navigation')
-
     <!-- Page Heading -->
     @isset($header)
         <header class="bg-white shadow">
@@ -30,6 +29,7 @@
     <!-- Page Content -->
     <main>
         <div class="pt-[100px] p-8 min-h-screen">
+            <x-message/>
             {{ $slot }}
         </div>
     </main>

@@ -111,8 +111,9 @@
                 <h3 class="py-2 pl-2 text-white font-semibold">
                     Real Estate Management
                 </h3>
-                <ul class="ml-6 text-white font-medium hover:underline hover:font-bold">
-                    <li><a href="{{ route('backoffice.properties.index') }}">Properties</a></li>
+                <ul class="ml-6 text-white font-medium hover:font-bold">
+                    <li class="hover:underline"><a href="{{ route('backoffice.properties.index') }}">Properties</a></li>
+                    <li class="hover:underline"><a href="{{ route('backoffice.users.index') }}">Users</a></li>
                 </ul>
             </div>
             <ul>

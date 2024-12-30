@@ -10,5 +10,7 @@
         $headers = ['title','user id','description','price','type','status','location','city','size','rooms'];
         $fields = ['title','user_id','description','price','type','status','location','city','size','rooms'];
     @endphp
-    @include('components.table', ['models' => $properties, 'headers' => $headers, 'fields' => $fields])
+    @include('components.table',
+['models' => $properties, 'headers' => $headers, 'fields' => $fields, 'edit' => true,
+'editRoute' => 'backoffice.properties.edit', 'delete' => true, 'deleteRoute' => 'backoffice.properties.destroy'])
 </x-backoffice-layout>

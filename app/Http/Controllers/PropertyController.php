@@ -32,10 +32,10 @@ class PropertyController extends Controller
             $property = Property::create($validatedData);
             $this->handleImageUpload($request->photo, $property->id);
         } catch (\Exception $exception) {
-            return $this->handleError($exception);
+            return redirect()->back()->with('error', $exception->getMessage());
         }
 
-        return redirect()->route('backoffice.properties.index');
+        return redirect()->route('backoffice.properties.index')->with('message', 'Operation successful!');
     }
 
 
@@ -54,10 +54,10 @@ class PropertyController extends Controller
             $property->update($validatedData);
             $this->handleImageUpload($request->photo, $property->id, $property->image);
         } catch (\Exception $exception) {
-            return $this->handleError($exception);
+            return redirect()->back()->with('error', $exception->getMessage());
         }
 
-        return redirect()->route('backoffice.properties.index');
+        return redirect()->route('backoffice.properties.index')->with('message', 'Operation successful!');
     }
 
     private function handleImageUpload($photo, $propertyId, $existingImage = null)
@@ -89,7 +89,7 @@ class PropertyController extends Controller
     public function destroy(string $id)
     {
         Property::destroy($id);
-        return redirect()->back()->with('success', 'Deleted Successfully');
+        return redirect()->back()->with('message', 'Deleted Successfully');
     }
 
     public function actionOnProperty($id, Request $request)
@@ -117,7 +117,7 @@ class PropertyController extends Controller
                 ]);
             }
         }
-       return redirect()->back();
+       return redirect()->back()->with('message', 'Operation successful!');
     }
 
     public function getValidation()

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,6 +13,7 @@ Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'ver
 
 Route::middleware(['auth', 'backofficeArea'])->group(function () {
     Route::redirect('backoffice', 'backoffice/properties');
+    Route::resource('backoffice/users', UserController::class)->names('backoffice.users');
     Route::resource('/backoffice/properties', PropertyController::class)->except('show')->names('backoffice.properties');
 });
 

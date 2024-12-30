@@ -30,6 +30,7 @@
     <!-- Page Content -->
     <main>
         <div class="pt-[100px] p-8 sm:ml-64 min-h-screen">
+            <x-message/>
             {{ $slot }}
         </div>
     </main>
