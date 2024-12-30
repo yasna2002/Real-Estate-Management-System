@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorite;
 use App\Models\Property;
 use App\Models\Image;
 use Illuminate\Http\Request;
@@ -89,6 +90,34 @@ class PropertyController extends Controller
     {
         Property::destroy($id);
         return redirect()->back()->with('success', 'Deleted Successfully');
+    }
+
+    public function actionOnProperty($id, Request $request)
+    {
+        /** @var Property $property */
+        $property = Property::findOrfail($id);
+        $favorite = Favorite::where('property_id', $property->id)->where('user_id', $request->user()->id)->first();
+        if ($request->dislike || $request->like) {
+            if (!$favorite){
+                Favorite::create([
+                    'user_id' => $request->user()->id,
+                    'property_id' => $property->id,
+                    'dislikes' => $request->dislike,
+                    'likes' => $request->like,
+                ]);
+            }elseif ($request->dislike){
+                $favorite->update([
+                    'dislikes' => 1,
+                    'likes' => null,
+                ]);
+            }elseif ($request->like){
+                $favorite->update([
+                    'likes' => 1,
+                    'dislikes' => null,
+                ]);
+            }
+        }
+       return redirect()->back();
     }
 
     public function getValidation()

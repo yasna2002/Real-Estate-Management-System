@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property string $title
  * @property int $id
+ * @property int $user_id
+ * @property int $likes
+ * @property int $dislikes
  * @property string|null $description
  * @property float $price
  * @property string|null $type
