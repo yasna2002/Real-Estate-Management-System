@@ -13,10 +13,14 @@ Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'ver
 Route::middleware(['auth', 'backofficeArea'])->group(function () {
     Route::redirect('backoffice', 'backoffice/properties');
     Route::resource('/backoffice/properties', PropertyController::class)->except('show')->names('backoffice.properties');
+});
 
+
+Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
+    Route::get('/action-on-property/{property}', [PropertyController::class, 'actionOnProperty'])->name('action-on-property');
+});
 require __DIR__.'/auth.php';
